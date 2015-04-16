@@ -1,0 +1,44 @@
+<% layout('../layout') -%>
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        访问统计
+        <small>IP-PV</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="#">日志管理</a></li>
+        <li class="active">IP-PV Stats</li>
+    </ol>
+</section>
+
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">IP-PV Stats</h3>
+                    <div class="pull-right box-tools">
+                        <button class="btn btn-primary btn-sm btn-add-pub"><i class="fa fa-plus"></i></button>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover" id="ipstats_table">
+                        <thead>
+                            <tr>
+                                <th>Province</th>
+                                <th>City</th>
+                                <th>PV</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+    </div>
+</section>
+<% stylesheet('//cdn.datatables.net/1.10.3/css/jquery.dataTables.css') -%>
+<% script('//cdn.datatables.net/1.10.3/js/jquery.dataTables.min.js') -%>
+<% script('/adpro/ipstats.js') -%>

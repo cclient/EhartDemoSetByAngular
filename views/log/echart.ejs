@@ -1,0 +1,77 @@
+<% layout('../layout') -%>
+<section class="content-header">
+    <h1>
+        日志管理
+        <small>实时日志</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">日志管理</a></li>
+        <li class="active">实时日志</li>
+    </ol>
+</section>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-primary">
+                <div class="box-header">
+                    <h3 class="box-title">实时日志控制</h3>
+                    <div class="pull-right box-tools">
+                        <button class="btn btn-primary btn-sm btn-add-pub"><i class="fa fa-plus"></i></button>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover" id="log_table">
+                        <tbody>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date</th>
+                                <th>Handle</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
+        </div>
+    </div>
+    <h4 class="page-header">
+        提示：
+        <small>目前支持最大pubID添加数量上限为15个</small>
+    </h4>
+    <!-- modal -->
+    <div id="removePubEnsure" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="mySmallModalLabel">移除实时统计</h4>
+            </div>
+            <div class="modal-body">
+              <button type="button" class="btn btn-small btn-primary btn-ensure" data-dismiss="modal" aria-hidden="true"><span aria-hidden="true">确定</span></button>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <!-- modal -->
+    <div id="addPubId" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="addPubModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+              <h4 class="modal-title" id="addPubModalLabel">添加PubId</h4>
+            </div>
+            <div class="modal-body">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" id="pubIdInput">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary btn-flat btn-addPubId" type="button">Submit</button>
+                    </span>
+                </div>
+            </div>
+          </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+</section>
+<% script('/adpro/log.js') -%>

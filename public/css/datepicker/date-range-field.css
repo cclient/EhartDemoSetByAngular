@@ -1,0 +1,49 @@
+#date-range {
+    position:relative;
+}
+#date-range-field {
+    width: 290px;
+    /*height: 26px;*/
+    height: 37px;
+    overflow: hidden;
+    position: relative;
+    cursor:pointer;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+}
+#date-range-field a  {
+    color:#B2B2B2;
+    background-color:#F7F7F7;
+    text-align:center;
+    display: block;
+    position: absolute;
+    width: 26px;
+    height: 23px;
+    top: 0;
+    right: 0;
+    text-decoration: none;
+    padding-top:6px;
+    border-radius: 0 5px 5px 0;
+}
+#date-range-field span {
+    font-size: 14px;
+    font-weight: bold;
+    color: #404040;
+    position: relative;
+    top: 5px;
+    height: 37px;
+    height: 37px;
+    left: 5px;
+    width: 250px;
+    text-align: center;
+}
+#datepicker-calendar{
+    /*display:none;*/
+}
+/*Remove default border from the custom widget since we're adding our own.  TBD: rework the dropdown calendar to use the default borders */
+#datepicker-calendar div.datepicker {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+}

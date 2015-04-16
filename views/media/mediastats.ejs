@@ -1,0 +1,103 @@
+<% layout('../layout') -%>
+<!-- Content Header (Pat header) -->
+<section class="content-header">
+    <h1>
+        媒体统计
+        <small>Media</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="#">日志管理</a></li>
+        <li>IP-PV Stats</li>
+        <li class="active">Media Stats</li>
+    </ol>
+</section>
+<style>
+    /*cdp*/
+    .search{
+        margin-top: 20px;
+    }
+    .mediasel_lable{
+        display: inline-block;
+        max-width: 100%;
+        margin-bottom: 5px;
+        font-weight: 700;
+    }
+    .group {
+        background-color: bisque;
+    }
+    .time-sel-a  {
+        font-weight: bold;
+        padding: 2px 6px;
+        display: inline-block;
+    }
+    .inlineblock{
+        display: inline-block;
+
+    }
+
+</style>
+<section class="content">
+    <div class=".container-fluid ">
+
+        <div class="row">
+            <div class="col-xs-9">
+                <div class="l date-select-bar inlineblock" id="DateSelectBar" >
+                    <a href="#00" class="time-sel-a" data-value="time_today">今天</a><span class="seprator"></span>
+                    <a href="#-1" class="time-sel-a" data-value="time_yest">昨天</a><span class="seprator"></span>
+                    <a href="#-6" class="time-sel-a" data-value="time_week">最近7天</a><span class="seprator"></span>
+                    <a href="#-29" class="time-sel-a" data-value="time_month">最近30天</a><span class="seprator"></span>
+                </div>
+                <div class="inlineblock">
+                    <label for="date-range">自选范围</label>
+                    <div id="date-range" class="inlineblock">
+                        <div id="date-range-field">
+                            <span></span>
+                            <a href="#">&#9660;</a>
+                        </div>
+                        <div id="datepicker-calendar"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-3">
+                <label for="search"></label>
+                <button type="button" id="search" class="btn btn-success">查看</button>
+            </div>
+        </div>
+
+        <div class="row" >
+            <div class="col-xs-4">
+                <lable class='mediasel_lable'>媒体选择</lable>
+                <ul id="myTags">
+                </ul>
+            </div>
+        </div>
+<div class ="row">
+    <div class="col-xs-12">
+        <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)"  color="#987cb9" SIZE="4">
+    </div>
+</div>
+        <div class="row" id="initest">
+        </div>
+    </div>
+</section>
+<% script('/js/jquery-ui.min.js') -%>
+<% script('/js/jquery-ui/autocomplete.js') -%>
+<% script('/js/tag-it.min.js') -%>
+<% stylesheet('/css/jquery-ui/themes/base/all.css') -%>
+<% stylesheet('/css/tag-it/css/jquery.tagit.css') -%>
+
+<% script('/js/datepicker.js') -%>
+
+<% stylesheet('/css/datepicker/base.css') -%>
+<% stylesheet('/css/datepicker/clean.css') -%>
+<% stylesheet('/css/datepicker/date-range-field.css') -%>
+
+<% script('/js/jquery.dataTables.min.js') -%>
+<% stylesheet('/css/datatablesorigin/css/jquery.dataTables.min.css') -%>
+<% stylesheet('/css/jquery-prompt/jquery.prompt.css') -%>
+
+<script src="/js/echarts/build/dist/echarts-all.js"></script>
+<% script('/adpro/datepickerini.js') -%>
+<% script('/adpro/mediacreate.js') -%>
+<% script('/js/jquery.prompt.js') -%>

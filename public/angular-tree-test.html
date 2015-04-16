@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>AdminLTE | Dashboard</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <!-- Theme style -->
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<style>
+    .btn {
+        margin-right: 8px;
+    }
+
+    .angular-ui-tree-handle {
+        background: #f8faff;
+        border: 1px solid #dae2ea;
+        color: #7c9eb2;
+        padding: 10px 10px;
+    }
+
+    .angular-ui-tree-handle:hover {
+        color: #438eb9;
+        background: #f4f6f7;
+        border-color: #dce2e8;
+    }
+
+    .angular-ui-tree-placeholder {
+        background: #f0f9ff;
+        border: 2px dashed #bed2db;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+
+    .group-title {
+        background-color: #687074 !important;
+        color: #FFF !important;
+    }
+</style>
+    </head>
+    <body  ng-app="treeApp" >
+    <!--<div class="container"  ng-controller="treeCtrl" >-->
+    <div class="container"  ng-controller="treeCtrl" data-ng-init="load()" >
+        <div class="row">
+            <div class="col-lg-5">
+                <script type="text/ng-template" id="nodes_renderer.html">
+                    <div ui-tree-handle class="tree-node tree-node-content">
+                        <a class="btn btn-success btn-xs" ng-if="node.nodes && node.nodes.length > 0" nodrag ng-click="toggle(this)">
+                            <span class="glyphicon" ng-class="{'glyphicon-chevron-right': collapsed, 'glyphicon-chevron-down': !collapsed}"></span></a>
+                        {{node.title}}
+                        <a class="pull-right btn btn-danger btn-xs" ng-if="node.id!=1&&node.nodes.length==0" nodrag ng-click="remove(this)"><span class="glyphicon glyphicon-remove"></span></a>
+                        <a class="pull-right btn btn-primary btn-xs"   nodrag ng-click="newSubItem(this)" style="margin-right: 8px;"><span class="glyphicon glyphicon-plus"></span></a>
+                        <a class="pull-right btn btn-danger btn-xs" ng-if="node.id!=1" nodrag ng-click="edit(this)"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </div>
+                    <ol ui-tree-nodes="" ng-model="node.nodes" ng-class="{hidden: collapsed}">
+                        <li ng-repeat="node in node.nodes" ui-tree-node ng-include="'nodes_renderer.html'">
+                        </li>
+                    </ol>
+                </script>
+                <div>
+                    <div ui-tree id="tree-root" data-max-depth="3" data-drag-delay="500">
+                        <ol ui-tree-nodes ng-model="data">
+                            <li ng-repeat="node in data" ui-tree-node ng-include="'nodes_renderer.html'"></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <h4>{{currentModel.showtype}}</h4>
+                <input type="button" value="save" ng-click="save(this)"/>
+                <input type="button" value="log" ng-click="log(this)"/>
+                <input type="button" value="update" ng-click="update(this)">
+                <form class="form-horizontal" role="form">
+
+                    <div class="form-group" ng-show="currentModel.type">
+                        <label  class="col-sm-3 control-label">图表对像</label>
+                        <div class="col-sm-9">
+                            <textarea >
+                                {{currentModel}}
+                            </textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
+
+                        <label for="inputtitle" class="col-sm-3 control-label">标题</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.title" class="form-control" id="inputtitle">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="currentModel.href" >
+                        <label for="inputhref" class="col-sm-3 control-label">URL</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.href" class="form-control" id="inputhref">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="currentModel.showtype=='图表'">
+                        <label for="inputhost" class="col-sm-3 control-label">数据库连接</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.host" class="form-control" id="inputhost">
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="currentModel.showtype=='图表'">
+                        <label for="inputtableDOMId" class="col-sm-3 control-label">查询路径</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.searchUrl" class="form-control" id="inputsearchurl" placeholder="/">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="currentModel.showtype=='图表'">
+                        <label for="inputtableDOMId" class="col-sm-3 control-label">查询参数</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.queryString" class="form-control" id="inputqueryString" placeholder="?a=b&c=d">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="currentModel.showtype=='图表'" >
+                        <label for="inputshowDataValue" class="col-sm-3 control-label">查询值</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.showDataValue" class="form-control" id="inputshowDataValue" placeholder="['pubID','date','click','ipClick','ipPv','pv','uvClick','uvPv','province','city']">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="currentModel.showtype=='图表'">
+                        <label for="inputshowDataName" class="col-sm-3 control-label">展示值</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.showDataName" class="form-control" id="inputshowDataName" placeholder="['媒体名称','日期','点击','ip点击','ip展示','展示','uv点击','uv展示','省','市']">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="currentModel.showtype=='图表'">
+                        <label for="inputgroupColumnIndex" class="col-sm-3 control-label">分组列序号（限两列）</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.groupColumnIndex" class="form-control" id="inputgroupColumnIndex" placeholder="[0,1]">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="currentModel.showtype=='图表'">
+                        <label for="inputtableDOMId" class="col-sm-3 control-label">table ID</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.tableDOMId" class="form-control" id="inputtableDOMId" placeholder="table1">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="currentModel.showtype=='图表'">
+                        <label for="inputtableDOMWidth" class="col-sm-3 control-label">表格宽度（0-12）</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.tableDOMWidth" class="form-control" id="inputtableDOMWidth" placeholder="12">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="currentModel.showtype=='图表'">
+                        <label for="inputmaindivDOMId" class="col-sm-3 control-label">图表div ID</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.maindivDOMId" class="form-control" id="inputmaindivDOMId" placeholder="div1">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="currentModel.showtype=='图表'">
+                        <label for="inputmaindivDOMWidth" class="col-sm-3 control-label">图表宽度（0-12）</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.maindivDOMWidth" class="form-control" id="inputmaindivDOMWidth" placeholder="12">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="currentModel.showtype=='图表'">
+                        <label for="inputmaindivDOMHeight" class="col-sm-3 control-label">图表高度(px)</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.maindivDOMHeight" class="form-control" id="inputmaindivDOMHeight" placeholder="530">
+                        </div>
+                    </div>
+
+                    <div class="form-group" ng-show="currentModel.showtype=='图表'">
+                        <label for="inputshowDataValue" class="col-sm-3 control-label">图表类型</label>
+
+                        <div class="col-sm-9"> <label class="radio-inline">
+                            <input type="radio"  ng-model="currentModel.charttype" value="bigmap"> 大地图
+                        </label>
+                            <label class="radio-inline">
+                                <input type="radio"  ng-model="currentModel.charttype" value="pietimeline"> 时间线
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio"  ng-model="currentModel.charttype" value="xycompare"> 对比图
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio"  ng-model="currentModel.charttype" value="pie"> 饼图
+                            </label>
+                        </div>
+
+                    </div>
+                </form>
+
+                <form class="form-horizontal" role="form" ng-if="currentModel.showtype=='图表'" ng-show="currentModel.charttype=='bigmap'">
+                    <div class="form-group" >
+                        <label for="inputlengendrange" class="col-sm-3 control-label">地图域范围</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.lengendrange" class="form-control" id="inputlengendrange" placeholder="[2,7]">
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="inputprovinceIndex" class="col-sm-3 control-label">省信息（查询值中的第几列，从0起数）</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.bigmap.provinceIndex" class="form-control" id="inputprovinceIndex" placeholder="8">
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="inputcityIndex" class="col-sm-3 control-label">市信息（查询值中的第几列，从0起数）</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.bigmap.cityIndex" class="form-control" id="inputcityIndex" placeholder="9">
+                        </div>
+                    </div>
+                </form>
+
+                <form class="form-horizontal" role="form" ng-if="currentModel.showtype=='图表'" ng-show="currentModel.charttype=='compare'">
+                    <div class="form-group" >
+                        <label for="inputshowDataValue" class="col-sm-3 control-label">比较值列</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.compare.compareRange" class="form-control" placeholder="[2,7]">
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="inputgroupColumnIndex" class="col-sm-3 control-label">ID列</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.compare.objIdIndex" class="form-control" id="" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="inputtableDOMId" class="col-sm-3 control-label">时间列</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.compare.xIndex" class="form-control" id="" placeholder="1">
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="inputtableDOMId" class="col-sm-3 control-label">对比列选择domid</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.compare.compareValueSelectDOMId" class="form-control" id="" placeholder="value-select">
+                        </div>
+                    </div>
+                </form>
+                <form class="form-horizontal" role="form" ng-if="currentModel.showtype=='图表'" ng-show="currentModel.charttype=='pietimeline'">
+                    <div class="form-group" >
+                        <label for="inputshowDataValue" class="col-sm-3 control-label">展示值</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.pietimeline.dataRange" class="form-control" placeholder="[1,2]">
+                        </div>
+                    </div>
+                </form>
+                <form class="form-horizontal" role="form" ng-if="currentModel.showtype=='图表'" ng-show="currentModel.charttype=='xycompare'">
+                    <div class="form-group" >
+                        <label for="inputcompareRange" class="col-sm-3 control-label">对比选项</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="inputcompareRange" ng-model="currentModel.xycompare.compareRange" class="form-control" placeholder="[2,7]">
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="inputobjIdIndex" class="col-sm-3 control-label">项主键</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="inputobjIdIndex" ng-model="currentModel.xycompare.objIdIndex" class="form-control" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="form-group" >
+                        <label for="inputxIndex" class="col-sm-3 control-label">时间列</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="inputxIndex" ng-model="currentModel.xycompare.xIndex" class="form-control" placeholder="0">
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
+                        <label for="inputcompareValueSelectDOMId" class="col-sm-3 control-label">选项DOMID</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="inputcompareValueSelectDOMId"  ng-model="currentModel.xycompare.compareValueSelectDOMId" class="form-control" placeholder="value-select">
+                        </div>
+                    </div>
+                </form>
+
+                <form class="form-horizontal" role="form" ng-if="currentModel.showtype=='图表'" ng-show="currentModel.charttype=='pie'">
+                    <div class="form-group" >
+                        <label for="inputshowDataValue" class="col-sm-3 control-label">展示值</label>
+                        <div class="col-sm-9">
+                            <input type="text"  ng-model="currentModel.pie.dataRange" class="form-control" placeholder="[1,2]">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <script src="js/angularjs/angular.min.js" type="text/javascript"></script>
+    <script src="js/angular-ui/angular-ui-tree.min.js" type="text/javascript"></script>
+    <script src="adpro/admin/modulemanger.js" type="text/javascript"></script>
+    <link href="css/angular-ui/angular-ui-tree.min.css" rel="stylesheet" type="text/css" />
+    </body>
+</html>

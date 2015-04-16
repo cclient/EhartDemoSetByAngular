@@ -1,0 +1,126 @@
+<% layout('../layout') -%>
+<!-- Content Header (Pat header) -->
+<section class="content-header">
+    <h1>
+        媒体统计
+        <small>Media</small>
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i>Home</a></li>
+        <li><a href="#">省媒体信息</a></li>
+        <li>IP-PV Stats</li>
+        <li class="active">Media Stats</li>
+    </ol>
+</section>
+<style>
+    /*cdp*/
+
+</style>
+<section class="content">
+    <div class=".container-fluid ">
+        <div class="row" >
+
+            <div class="col-xs-5">
+                <label for="date-range">时间范围</label>
+                <div id="date-range">
+                    <div id="date-range-field">
+                        <span></span>
+                        <a href="#">&#9660;</a>
+                    </div>
+                    <div id="datepicker-calendar"></div>
+                </div>
+            </div>
+        </div>
+<div class ="row">
+    <div class="col-xs-12">
+        <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)"  color="#987cb9" SIZE="4">
+    </div>
+</div>
+        <div class="row">
+            <div class="col-xs-6">
+                <div id="graphic" style="height:450px;">
+                    <div id="main" style="height: 450px; cursor: default; background-color: rgba(0, 0, 0, 0);"></div>
+                </div>
+            </div>
+            <div id="divtopten" class="col-xs-6">
+                <div style="display:inline-block"> <ol><li>11</li></ol></div>
+                <div style="display:inline-block"> <ol style="display:inline-block"><li>11</li></ol></div>
+                <div style="display:inline-block"> <ol style="display:inline-block"><li>11</li></ol></div>
+
+            </div>
+        </div>
+    </div>
+</section>
+<% script('/js/jquery-ui.min.js') -%>
+<% script('/js/jquery-ui/autocomplete.js') -%>
+<% script('/js/tag-it.min.js') -%>
+<% stylesheet('/css/jquery-ui/themes/base/all.css') -%>
+<% stylesheet('/css/tag-it/css/jquery.tagit.css') -%>
+
+<% script('/js/datepicker.js') -%>
+
+<% stylesheet('/css/datepicker/base.css') -%>
+<% stylesheet('/css/datepicker/clean.css') -%>
+
+
+<% script('/js/jquery.dataTables.min.js') -%>
+<% stylesheet('/css/datatablesorigin/css/jquery.dataTables.min.css') -%>
+
+<script src="/js/echarts/build/dist/echarts-all.js"></script>
+
+<% script('/adpro/datepickerini.js') -%>
+
+<% script('/adpro/mediaprovince.js') -%>
+
+<style>
+    /* Style the calendar custom widget */
+    #date-range {
+        position:relative;
+    }
+    #date-range-field {
+        width: 290px;
+        /*height: 26px;*/
+        height: 37px;
+        overflow: hidden;
+        position: relative;
+        cursor:pointer;
+        border: 1px solid #CCCCCC;
+        border-radius: 5px 5px 5px 5px;
+    }
+    #date-range-field a  {
+        color:#B2B2B2;
+        background-color:#F7F7F7;
+        text-align:center;
+        display: block;
+        position: absolute;
+        width: 26px;
+        height: 23px;
+        top: 0;
+        right: 0;
+        text-decoration: none;
+        padding-top:6px;
+        border-radius: 0 5px 5px 0;
+    }
+    #date-range-field span {
+        font-size: 14px;
+        font-weight: bold;
+        color: #404040;
+        position: relative;
+        top: 5px;
+        height: 37px;
+        height: 37px;
+        left: 5px;
+        width: 250px;
+        text-align: center;
+    }
+    #datepicker-calendar{
+        /*display:none;*/
+    }
+     /*Remove default border from the custom widget since we're adding our own.  TBD: rework the dropdown calendar to use the default borders */
+    #datepicker-calendar div.datepicker {
+        background-color: transparent;
+        border: none;
+        border-radius: 0;
+        padding: 0;
+    }
+</style>
