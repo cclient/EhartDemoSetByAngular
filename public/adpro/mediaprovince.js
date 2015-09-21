@@ -2,17 +2,7 @@
  * Created by cuidapeng on 14-12-3.
  */
 var echarts;
-//function CreateObj(Id) {
-//    this.showDataValue = ['ipPv', 'uvPv'];
-//    this.showDataName = ['ip展示', 'uv展示'];
-//    this.topnum = 20;
-//    this.maindivDOMId = 'main' + Id;
-//    this.datebegin;
-//    this.dateend;
-//    this.topDivParentId = 'divtopten' + Id;
-//    this.serachUrl = '/media/provincemediatop';
-//    this.queryString = '';
-//}
+
 
 function CreateObj() {
     this.showDataValue = ['ipPv', 'uvPv'];
@@ -114,7 +104,7 @@ CreateObj.prototype = {
         self.dateend = alldate[0][1];
     }
 };
-var queryobj = new CreateObj();
 
+var queryobj = new CreateObj();
 //queryobj.setDataRange();
 queryobj.drawCanvas();

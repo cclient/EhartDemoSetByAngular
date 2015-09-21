@@ -43,31 +43,11 @@
             "sInfoFiltered": "(从 _MAX_ 行中过滤)"
         };
         var columnDefs = self.groupColumnIndex ? [
-//            { "visible": false, "targets": 0 },
             { "visible": false, "targets": self.groupColumnIndex[0] }
         ] : [];
         var columns=self.showDataValue.map(function(item){
             return   { "data": item,"defaultContent":'' }
         })
-
-        console.log(self.showDataName.length);
-        console.log(self.showDataValue.length);
-        console.log(columns.length);
-
-
-console.log(columns);
-//        var  columns= [
-//            { "data": "_id" },
-//            { "data": "macname","defaultContent":'' },
-//            { "data": "idcard" ,"defaultContent":''},
-//            { "data": "username" ,"defaultContent":''},
-//            { "data": "location","defaultContent":'' },
-//            {"data":"edit","defaultContent":'<a class="edit">编辑</a>'},
-//            { "data":'delete',"defaultContent":'<a class="delete">删除</a>'}
-//        ]
-
-
-
         var order = self.groupColumnIndex ? [
 //            [ self.groupColumnIndex[0], 'asc' ],[self.provinceIndex,'asc']
             [ self.groupColumnIndex[0], 'asc' ]
@@ -132,7 +112,6 @@ console.log(columns);
                 $('#' + self.maindivDOMId + '').css('display', 'block');
                 self.jsonData = json.data || json;
                 self.drawCanvas();
-
             }
         }
         $.Prompt({close:true});
@@ -378,8 +357,6 @@ console.log(columns);
                         var legendname = echartlegend[i];
                         seriesdata[legendname] = seriesdata[legendname] || [];
                         var nameindex = (mapname == 'china' ? self.provinceIndex : self.cityIndex);
-
-//                        if (item[i + self.lengendRange[0]] && (mapname == 'china' || mapname.indexOf(item[self.provinceIndex]) != -1))
                         if (item[self.showDataValue[ i + self.lengendRange[0]]] && (mapname == 'china' || mapname.indexOf(item[self.showDataValue[self.provinceIndex]]) != -1))
                         {
                             var ishas = false;
@@ -497,11 +474,8 @@ console.log(columns);
 
         var Yname=self.showDataValue[YValueIndex];
         var Gname=self.showDataValue[groupIndex];
-
-
         var medias = [];
         for (var i = 0; i < self.jsonData.length; i++) {
-//            medias.push(self.jsonData[i][groupIndex]);
             medias.push(self.jsonData[i][Gname]);
         }
         medias = $.unique(medias);
@@ -510,11 +484,6 @@ console.log(columns);
 //            var medianame = self.jsonData[i][groupIndex];
             var medianame = self.jsonData[i][Gname];
             allmediadata[medianame] = allmediadata[medianame] || {};
-//
-//            if (self.jsonData[i][YValueIndex]) {
-//                allmediadata[medianame][self.jsonData[i][XValueIndex]] = allmediadata[medianame][self.jsonData[i][XValueIndex]] || 0;
-//                allmediadata[medianame][self.jsonData[i][XValueIndex]] += (self.jsonData[i][YValueIndex] || 0);
-//            }
             if (self.jsonData[i][Yname]) {
                 allmediadata[medianame][self.jsonData[i][Xname]] = allmediadata[medianame][self.jsonData[i][Xname]] || 0;
                 allmediadata[medianame][self.jsonData[i][Xname]] += (self.jsonData[i][Yname] || 0);
@@ -665,7 +634,7 @@ console.log(columns);
             },
             legend: {
                 orient: 'vertical',
-                x: 'left',
+                x: 'left'
 //                data:['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
             },
             toolbox: {
@@ -695,7 +664,7 @@ console.log(columns);
                     name: '访问来源',
                     type: 'pie',
                     radius: '55%',
-                    center: ['50%', '60%'],
+                    center: ['50%', '60%']
 //                    data:[
 //                        {value:335, name:'直接访问'},
                 }

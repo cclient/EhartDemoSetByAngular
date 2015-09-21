@@ -53,7 +53,6 @@ function createLogTd(data) {
             });
         }
     }).appendTo($tdRemove);
-
     $logTable.append($tr);
 }
 

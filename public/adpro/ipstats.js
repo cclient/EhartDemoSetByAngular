@@ -14,8 +14,5 @@ $(function () {
     });
     table.on('xhr.dt', function (e, settings, json) {
         console.log(json)
-
     })
-
-
 });

@@ -108,13 +108,11 @@
                 }
             ];
             $scope.update = function () {
-
                 $http({
                     data: {"menu": $scope.data},
                     method: 'post',
                     url: '/updatemenu'
                 }).success(function (data, status) {
-
                     if (data == 'success') {
                         alert('更新成功');
                     }
